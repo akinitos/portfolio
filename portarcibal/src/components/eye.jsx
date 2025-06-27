@@ -73,7 +73,7 @@ const EyeComponent = () => {
             width: '20px',
             height: '20px',
             transform: `translate(${eyePosition.x}px, ${eyePosition.y}px)`,
-            transition: 'transform 0.1s ease-out'
+            transition: 'transform 0.05s ease-out'
           }}
         />
       </div>
