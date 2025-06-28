@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ellipse1 from '../assets/Ellipse 1.png';
 import ellipse2 from '../assets/Ellipse 2.png';
+import ellipse3 from '../assets/Ellipse 3.png';
 
 const EyeComponent = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -25,7 +26,7 @@ const EyeComponent = () => {
       const deltaX = mousePosition.x - eyeCenterX;
       const deltaY = mousePosition.y - eyeCenterY;
       
-      const maxMovement = 15;
+      const maxMovement = 30;
       const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
       
       if (distance > maxMovement) {
@@ -33,7 +34,7 @@ const EyeComponent = () => {
         const normalizedY = (deltaY / distance) * maxMovement;
         setEyePosition({ x: normalizedX, y: normalizedY });
       } else {
-        setEyePosition({ x: deltaX * 0.4, y: deltaY * 0.4 });
+        setEyePosition({ x: deltaX * 1, y: deltaY * 1 });
       }
     }
   }, [mousePosition]);
@@ -51,29 +52,52 @@ const EyeComponent = () => {
       <div 
         className="eye-shape"
         style={{
+          backgroundColor: 'white',
           backgroundImage: `url(${ellipse2})`, // Fixed: using backticks for template literal
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
-          width: '80px',
-          height: '40px',
+          mask: `url(${ellipse2})`,
+          maskSize: 'contain',
+          maskRepeat: 'no-repeat',
+          maskPosition: 'center',
+          width: '160px',
+          height: '80px',
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          overflow: 'hidden'
         }}
       >
+
+        
         <div 
           className="pupil"
           style={{
-            backgroundImage: `url(${ellipse1})`, // Fixed: using backticks for template literal
+            backgroundImage: `url(${ellipse1})`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-            width: '20px',
-            height: '20px',
+            width: '40px',
+            height: '40px',
             transform: `translate(${eyePosition.x}px, ${eyePosition.y}px)`,
             transition: 'transform 0.05s ease-out'
+          }}
+        />
+        
+        <div 
+          style={{
+            backgroundImage: `url(${ellipse3})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            width: '160px',
+            height: '80px',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            pointerEvents: 'none'
           }}
         />
       </div>

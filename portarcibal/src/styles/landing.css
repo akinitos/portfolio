@@ -56,13 +56,13 @@ body {
   font-family: 'Rammetto One', cursive;
   font-size: clamp(3rem, 8vw, 6rem);
   color: #FFF891;
+  -webkit-text-fill-color: #FFF891;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #000000;
   text-shadow: 
-    3px 3px 0px #000,
-    -1px -1px 0px #000,
-    1px -1px 0px #000,
-    -1px 1px 0px #000,
-    1px 1px 0px #000;
-  line-height: 0.9;
+    -6px 6px 0px #000000,
+    -12px 2px 0px #FFFFFF;
+  line-height: 4.5rem;
   margin-bottom: 20px;
   letter-spacing: 2px;
 }
@@ -70,7 +70,7 @@ body {
 .squiggly-text {
   font-family: 'Redacted Script', cursive;
   font-size: clamp(1rem, 3vw, 1.5rem);
-  color: #FFF891;
+  color: #FFFFFF;
   margin-bottom: 10px;
   opacity: 0.8;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
