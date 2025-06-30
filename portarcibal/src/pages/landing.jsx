@@ -1,5 +1,6 @@
 import React from 'react';
 import EyeComponent from '../components/eye.jsx';
+import ArrowComponent from '../components/arrow.jsx';
 import '../styles/landing.css';
 
 function Landing() {
@@ -17,6 +18,7 @@ function Landing() {
           have a look at my portfolio
         </p>
       </div>
+      <ArrowComponent />
       <EyeComponent />
     </div>
   );
