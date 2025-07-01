@@ -5,7 +5,7 @@ import Landing from "./pages/landing.jsx"
 function App() {
   return (
     <>
-     <BrowserRouter basename="/portfolio">
+     <BrowserRouter basename="/portfolio/">
       <Routes>
         <Route
           path="/landing"
@@ -13,6 +13,12 @@ function App() {
               <Landing />
           }
         />  
+        <Route
+          path="*"
+          element={
+            <Navigate to="/landing" replace />
+          }
+        />
       </Routes> 
     </BrowserRouter>
   </>
