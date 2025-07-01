@@ -5,7 +5,7 @@ import Landing from "./pages/landing.jsx"
 function App() {
   return (
     <>
-     <BrowserRouter basename="/portfolio/">
+     <BrowserRouter>
       <Routes>
         <Route
           path="/landing"
