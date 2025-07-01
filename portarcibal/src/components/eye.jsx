@@ -9,6 +9,7 @@ const EyeComponent = () => {
   const [eyePosition, setEyePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [showPupil, setShowPupil] = useState(true);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -47,11 +48,15 @@ const EyeComponent = () => {
   const handleMouseEnter = () => {
     setIsHovered(true);
     setIsClosing(true);
+    setShowPupil(false);
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
     setIsClosing(false);
+    setTimeout(() => {
+      setShowPupil(true);
+    }, 80); 
   };
 
   const handleClick = () => {
@@ -68,7 +73,6 @@ const EyeComponent = () => {
         bottom: '-40px',
         transform: 'translateX(-50%)',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         cursor: isHovered ? 'pointer' : 'default'
@@ -82,14 +86,20 @@ const EyeComponent = () => {
         className="see-more-text"
         style={{
           opacity: isHovered ? 1 : 0,
-          transform: `translateY(${isHovered ? '0' : '10px'})`,
-          transition: 'all 0.3s ease',
-          color: '#FFF891',
-          fontSize: '14px',
+          transition: 'all 0.1s ease',
+          color: '#6C60C7',
+          WebkitTextStroke: '0.75px #FFFFFF',
+          fontSize: '1.25rem',
+          letterSpacing: '0.1rem',
+          textAlign: 'center',
+          lineHeight: '0.8',
           fontWeight: 'bold',
-          textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
-          marginBottom: '10px',
-          pointerEvents: 'none'
+          position: 'absolute',
+          top: '40%',
+          left: '50%',
+          transform: `translate(-50%, -50%) translateY(${isHovered ? '0' : '0px'})`,
+          pointerEvents: 'none',
+          zIndex: 10
         }}
       >
         see more
@@ -98,12 +108,11 @@ const EyeComponent = () => {
       <div 
         className="eye-shape"
         style={{
-          backgroundColor: isClosing ? 'transparent' : 'white',
           backgroundImage: isClosing ? `url(${closedEye})` : `url(${ellipse2})`,
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
-          mask: isClosing ? `url(${closedEye})` : `url(${ellipse2})`,
+          mask: `url(${ellipse2})`,
           maskSize: 'contain',
           maskRepeat: 'no-repeat',
           maskPosition: 'center',
@@ -114,11 +123,12 @@ const EyeComponent = () => {
           alignItems: 'center',
           justifyContent: 'center',
           overflow: 'hidden',
-          transition: 'all 0.3s ease'
+          transition: 'all 0.5s ease',
+          transform: isClosing ? 'scale(1.05)' : 'scale(1)'
         }}
       >
  
-        {!isClosing && (
+        {!isClosing && showPupil && (
           <div 
             className="pupil"
             style={{
