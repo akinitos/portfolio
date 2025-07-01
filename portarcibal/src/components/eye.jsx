@@ -78,7 +78,7 @@ const EyeComponent = () => {
     window.location.href = '/portfolio'; 
   };
 
-  const eyeRotations = [-45, 0, 90, 45];
+  const eyeRotations = [-45, 90, 0, 45];
 
   return (
     <div 
@@ -86,8 +86,8 @@ const EyeComponent = () => {
       style={{
         position: 'absolute',
         left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)',
+        top: '30%',
+        transform: 'translate(-50%, -15%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -104,35 +104,35 @@ const EyeComponent = () => {
         position: 'absolute',
         width: '200px',
         height: '200px',
-        backgroundImage: 'url(${theCircle})',
+        backgroundImage: `url(${theCircle})`,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        animation: 'rotate 30s linear infinite',
+        zIndex: 1
+      }} />
+
+      <div style={{
+        position: 'absolute',
+        width: '175px',
+        height: '175px',
+        backgroundImage: `url(${theCircle})`,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        animation: 'rotate 20s linear infinite',
+        zIndex: 1
+      }} />
+
+      <div style={{
+        position: 'absolute',
+        width: '150px',
+        height: '150px',
+        backgroundImage: `url(${theCircle})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         animation: 'rotate 10s linear infinite',
-        zIndex: 1
-      }} />
-
-      <div style={{
-        position: 'absolute',
-        width: '150px',
-        height: '150px',
-        backgroundImage: 'url(${theCircle})',
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        animation: 'rotate 8s linear infinite',
-        zIndex: 1
-      }} />
-
-      <div style={{
-        position: 'absolute',
-        width: '150px',
-        height: '150px',
-        backgroundImage: 'url(${theCircle})',
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        animation: 'rotate 6s linear infinite',
         zIndex: 1
       }} />
 
@@ -147,8 +147,12 @@ const EyeComponent = () => {
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-            width: '160px',
-            height: '80px',
+            mask: `url(${ellipse2})`,
+            maskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            width: '200px',
+            height: '100px',
             position: 'absolute',
             display: 'flex',
             alignItems: 'center',
@@ -167,8 +171,8 @@ const EyeComponent = () => {
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                width: '40px',
-                height: '40px',
+                width: '50px',
+                height: '50px',
                 transform: `translate(${eyePositions[index].x}px, ${eyePositions[index].y}px)`,
                 transition: 'transform 0.05s ease-out'
               }}
@@ -182,8 +186,8 @@ const EyeComponent = () => {
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                width: '160px',
-                height: '80px',
+                width: '200px',
+                height: '100px',
                 position: 'absolute',
                 top: 0,
                 left: 0,
