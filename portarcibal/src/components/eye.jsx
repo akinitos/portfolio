@@ -4,7 +4,71 @@ import ellipse2 from '../assets/Ellipse 2.png';
 import ellipse3 from '../assets/Ellipse 3.png';
 import closedEye from '../assets/shut.png';
 import theCircle from '../assets/ring.png';  
+import sparkle from '../assets/sparkle.png';
 
+const Star = ({ initialX, initialY, delay, isVisible }) => {
+  const [position, setPosition] = useState({ x: initialX, y: initialY });
+  const [animationKey, setAnimationKey] = useState(0);
+
+  useEffect(() => {
+    const generateNewPosition = () => {
+      const angle = Math.random() * 2 * Math.PI;
+      const radius = 18;
+      const x = Math.cos(angle) * radius;
+      const y = Math.sin(angle) * radius;
+      setPosition({ x, y });
+      setAnimationKey(prev => prev + 1); // Force animation restart
+    };
+
+    // Wait for initial delay, then update position every 4 seconds (animation cycle)
+    const timeout = setTimeout(() => {
+      const interval = setInterval(generateNewPosition, 4000);
+      return () => clearInterval(interval);
+    }, delay * 1000);
+
+    return () => clearTimeout(timeout);
+  }, [delay]);
+
+  return (
+    <div
+      key={animationKey} // This forces the animation to restart when position changes
+      style={{
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        width: '24px',
+        height: '24px',
+        backgroundImage: `url(${sparkle})`,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        transform: `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px))`,
+        animation: isVisible ? `starPop 4s ease-in-out infinite` : 'none',
+        zIndex: 16
+      }}
+    />
+  );
+};
+
+const generateStarPositions = () => {
+  const stars = [];
+  const numStars = 4;
+  const radius = 18;
+  
+  for (let i = 0; i < numStars; i++) {
+    const angle = Math.random() * 2 * Math.PI;
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+    stars.push({ 
+      x, 
+      y, 
+      delay: i * 1, // Stagger delays: 0s, 1s, 2s, 3s
+      id: Math.random()
+    });
+  }
+  
+  return stars;
+};
 
 const EyeComponent = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -17,6 +81,8 @@ const EyeComponent = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [showPupils, setShowPupils] = useState(true);
+  const [hoveredButton, setHoveredButton] = useState('');
+  const [starPositions, setStarPositions] = useState([]);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -60,19 +126,36 @@ const EyeComponent = () => {
     }
   }, [mousePosition, isHovered, isClosing]);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    setIsClosing(true);
-    setShowPupils(false);
-  };
+  useEffect(() => {
+    const handleNavbarHover = (event) => {
+      if (event.detail) {
+        setHoveredButton(event.detail.buttonText);
+        setIsClosing(true); 
+        setShowPupils(false); 
+      }
+    };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setIsClosing(false);
-    setTimeout(() => {
-      setShowPupils(true);
-    }, 80); 
-  };
+    const handleNavbarLeave = () => {
+      setHoveredButton('');
+      setIsClosing(false); 
+      setTimeout(() => {
+        setShowPupils(true); 
+      }, 100);
+    };
+
+    window.addEventListener('navbarHover', handleNavbarHover);
+    window.addEventListener('navbarLeave', handleNavbarLeave);
+
+    return () => {
+      window.removeEventListener('navbarHover', handleNavbarHover);
+      window.removeEventListener('navbarLeave', handleNavbarLeave);
+    };
+  }, []);
+
+  useEffect(() => {
+    setStarPositions(generateStarPositions());
+  }, []);
+
 
   const handleClick = () => {
     window.location.href = '/portfolio'; 
@@ -91,12 +174,9 @@ const EyeComponent = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        cursor: isHovered ? 'pointer' : 'default',
         width: '200px',
         height: '200px'
       }}
-      onMouseEnter={handleMouseEnter} 
-      onMouseLeave={handleMouseLeave}  
       onClick={handleClick}   
     >
 
@@ -120,7 +200,7 @@ const EyeComponent = () => {
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        animation: 'rotate 20s linear infinite',
+        animation: 'counterRotate 20s linear infinite',
         zIndex: 1
       }} />
 
@@ -174,9 +254,21 @@ const EyeComponent = () => {
                 width: '50px',
                 height: '50px',
                 transform: `translate(${eyePositions[index].x}px, ${eyePositions[index].y}px)`,
-                transition: 'transform 0.05s ease-out'
+                transition: 'transform 0.05s ease-out',
+                position: 'relative'
               }}
-            />
+            >
+              {/* Stars only on the last eye (highest z-index = topmost visually) */}
+              {index === 3 && starPositions.map((star) => (
+                <Star 
+                  key={star.id} 
+                  initialX={star.x} 
+                  initialY={star.y} 
+                  delay={star.delay}
+                  isVisible={!isClosing && showPupils}
+                />
+              ))}
+            </div>
           )}
           
           {!isClosing && (
@@ -200,25 +292,28 @@ const EyeComponent = () => {
 
       {/* See more text */}
       <div 
-        className="see-more-text"
+        className="navbar-text"
         style={{
-          opacity: isHovered ? 1 : 0,
-          transition: 'all 0.1s ease',
+          opacity: hoveredButton ? 1 : 0,
+          transition: 'opacity 0.3s ease',
           color: '#FFFFFF',
-          fontSize: '1.25rem',
-          letterSpacing: '0.1rem',
+          fontSize: '1rem', // Smaller font size
+          letterSpacing: '0.05rem',
           textAlign: 'center',
-          lineHeight: '0.8',
           fontWeight: 'bold',
           position: 'absolute',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           pointerEvents: 'none',
-          zIndex: 100
+          zIndex: 100,
+          fontFamily: 'Anonymous Pro, monospace',
+          maxWidth: '140px', // Limit width for text wrapping
+          wordWrap: 'break-word',
+          whiteSpace: 'normal'
         }}
       >
-        see more
+        {hoveredButton}
       </div>
     </div>
   );

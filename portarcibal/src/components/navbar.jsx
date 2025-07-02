@@ -22,6 +22,14 @@ const NavBar = () => {
     }}>
       <button 
         onClick={() => window.location.href = '/about'}
+        onMouseEnter={() => {
+          window.dispatchEvent(new CustomEvent('navbarHover', { 
+            detail: { buttonText: 'about.' } 
+          }));
+        }}
+        onMouseLeave={() => {
+          window.dispatchEvent(new CustomEvent('navbarLeave'));
+        }}
         style={{
           backgroundColor: 'transparent',
           color: 'black',
@@ -34,8 +42,17 @@ const NavBar = () => {
       >
         about.
       </button>
+
       <button 
         onClick={() => window.location.href = '/certificates'}
+        onMouseEnter={() => {
+          window.dispatchEvent(new CustomEvent('navbarHover', { 
+            detail: { buttonText: 'certificates.' } 
+          }));
+        }}
+        onMouseLeave={() => {
+          window.dispatchEvent(new CustomEvent('navbarLeave'));
+        }}
         style={{
           backgroundColor: 'transparent',
           color: 'black',
@@ -48,8 +65,17 @@ const NavBar = () => {
       >
         certificates.
       </button>
+
       <button 
         onClick={() => window.location.href = '/'}
+        onMouseEnter={() => {
+          window.dispatchEvent(new CustomEvent('navbarHover', { 
+            detail: { buttonText: 'vdva.' } 
+          }));
+        }}
+        onMouseLeave={() => {
+          window.dispatchEvent(new CustomEvent('navbarLeave'));
+        }}
         style={{
           backgroundColor: 'black',
           color: 'white',
@@ -63,8 +89,17 @@ const NavBar = () => {
       >
         vdva.
       </button>
+
       <button 
         onClick={() => window.location.href = '/projects'}
+        onMouseEnter={() => {
+          window.dispatchEvent(new CustomEvent('navbarHover', { 
+            detail: { buttonText: 'projects.' } 
+          }));
+        }}
+        onMouseLeave={() => {
+          window.dispatchEvent(new CustomEvent('navbarLeave'));
+        }}
         style={{
           backgroundColor: 'transparent',
           color: 'black',
@@ -77,8 +112,17 @@ const NavBar = () => {
       >
         projects.
       </button>
+
       <button 
         onClick={() => window.location.href = '/contact'}
+        onMouseEnter={() => {
+          window.dispatchEvent(new CustomEvent('navbarHover', { 
+            detail: { buttonText: 'contact.' } 
+          }));
+        }}
+        onMouseLeave={() => {
+          window.dispatchEvent(new CustomEvent('navbarLeave'));
+        }}
         style={{
           backgroundColor: 'transparent',
           color: 'black',
