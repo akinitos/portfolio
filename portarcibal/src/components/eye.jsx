@@ -5,6 +5,7 @@ import ellipse3 from '../assets/Ellipse 3.png';
 import closedEye from '../assets/shut.png';
 import theCircle from '../assets/ring.png';  
 import sparkle from '../assets/sparkle.png';
+import shade from '../assets/ominous.png';
 
 const Star = ({ initialX, initialY, delay, isVisible }) => {
   const [position, setPosition] = useState({ x: initialX, y: initialY });
@@ -156,11 +157,6 @@ const EyeComponent = () => {
     setStarPositions(generateStarPositions());
   }, []);
 
-
-  const handleClick = () => {
-    window.location.href = '/portfolio'; 
-  };
-
   const eyeRotations = [-45, 90, 0, 45];
 
   return (
@@ -176,8 +172,7 @@ const EyeComponent = () => {
         justifyContent: 'center',
         width: '200px',
         height: '200px'
-      }}
-      onClick={handleClick}   
+      }} 
     >
 
       <div style={{
@@ -213,6 +208,18 @@ const EyeComponent = () => {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         animation: 'rotate 10s linear infinite',
+        zIndex: 1
+      }} />
+
+      <div style={{
+        position: 'absolute',
+        width: '275px',
+        height: '275px',
+        backgroundImage: `url(${shade})`,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        animation: 'counterRotate 50s linear infinite',
         zIndex: 1
       }} />
 
