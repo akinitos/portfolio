@@ -1,6 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const NavBar = () => {
+  const [hoveredButton, setHoveredButton] = useState('');
+
+  const handleMouseEnter = (buttonName, eyeText) => {
+    setHoveredButton(buttonName);
+    window.dispatchEvent(new CustomEvent('navbarHover', { 
+      detail: { buttonText: eyeText } 
+    }));
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredButton('');
+    window.dispatchEvent(new CustomEvent('navbarLeave'));
+  };
+
+  const buttonStyle = (buttonName) => ({
+    backgroundColor: hoveredButton === buttonName ? 'black' : 'transparent',
+    color: hoveredButton === buttonName ? 'white' : 'black',
+    border: 'none',
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    fontFamily: 'Anonymous Pro, monospace',
+    transition: 'all 0.3s ease',
+    padding: '8px 12px',
+    borderRadius: '4px'
+  });
+
+  const homeButtonStyle = {
+    backgroundColor: 'black',
+    color: 'white',
+    border: 'none',
+    padding: '10px 20px',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    fontFamily: 'Anonymous Pro, monospace'
+  };
+
   return (
     <nav style={{
       position: 'fixed',
@@ -22,116 +60,45 @@ const NavBar = () => {
     }}>
       <button 
         onClick={() => window.location.href = '/about'}
-        onMouseEnter={() => {
-          window.dispatchEvent(new CustomEvent('navbarHover', { 
-            detail: { buttonText: 'about.' } 
-          }));
-        }}
-        onMouseLeave={() => {
-          window.dispatchEvent(new CustomEvent('navbarLeave'));
-        }}
-        style={{
-          backgroundColor: 'transparent',
-          color: 'black',
-          border: 'none',
-          fontSize: '1.2rem',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          fontFamily: 'Anonymous Pro, monospace'
-        }}
+        onMouseEnter={() => handleMouseEnter('about', 'see more of me.')}
+        onMouseLeave={handleMouseLeave}
+        style={buttonStyle('about')}
       >
         about.
       </button>
 
       <button 
         onClick={() => window.location.href = '/certificates'}
-        onMouseEnter={() => {
-          window.dispatchEvent(new CustomEvent('navbarHover', { 
-            detail: { buttonText: 'certificates.' } 
-          }));
-        }}
-        onMouseLeave={() => {
-          window.dispatchEvent(new CustomEvent('navbarLeave'));
-        }}
-        style={{
-          backgroundColor: 'transparent',
-          color: 'black',
-          border: 'none',
-          fontSize: '1.2rem',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          fontFamily: 'Anonymous Pro, monospace'
-        }}
+        onMouseEnter={() => handleMouseEnter('certificates', 'see what i earned.')}
+        onMouseLeave={handleMouseLeave}
+        style={buttonStyle('certificates')}
       >
         certificates.
       </button>
 
       <button 
         onClick={() => window.location.href = '/'}
-        onMouseEnter={() => {
-          window.dispatchEvent(new CustomEvent('navbarHover', { 
-            detail: { buttonText: 'vdva.' } 
-          }));
-        }}
-        onMouseLeave={() => {
-          window.dispatchEvent(new CustomEvent('navbarLeave'));
-        }}
-        style={{
-          backgroundColor: 'black',
-          color: 'white',
-          border: 'none',
-          padding: '10px 20px',
-          fontSize: '1.5rem',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          fontFamily: 'Anonymous Pro, monospace'
-        }}
+        onMouseEnter={() => handleMouseEnter('home', 'home.')}
+        onMouseLeave={handleMouseLeave}
+        style={homeButtonStyle}
       >
         vdva.
       </button>
 
       <button 
         onClick={() => window.location.href = '/projects'}
-        onMouseEnter={() => {
-          window.dispatchEvent(new CustomEvent('navbarHover', { 
-            detail: { buttonText: 'projects.' } 
-          }));
-        }}
-        onMouseLeave={() => {
-          window.dispatchEvent(new CustomEvent('navbarLeave'));
-        }}
-        style={{
-          backgroundColor: 'transparent',
-          color: 'black',
-          border: 'none',
-          fontSize: '1.2rem',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          fontFamily: 'Anonymous Pro, monospace'
-        }}
+        onMouseEnter={() => handleMouseEnter('projects', 'see what i do.')}
+        onMouseLeave={handleMouseLeave}
+        style={buttonStyle('projects')}
       >
         projects.
       </button>
 
       <button 
         onClick={() => window.location.href = '/contact'}
-        onMouseEnter={() => {
-          window.dispatchEvent(new CustomEvent('navbarHover', { 
-            detail: { buttonText: 'contact.' } 
-          }));
-        }}
-        onMouseLeave={() => {
-          window.dispatchEvent(new CustomEvent('navbarLeave'));
-        }}
-        style={{
-          backgroundColor: 'transparent',
-          color: 'black',
-          border: 'none',
-          fontSize: '1.2rem',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          fontFamily: 'Anonymous Pro, monospace'
-        }}
+        onMouseEnter={() => handleMouseEnter('contact', 'lets connect.')}
+        onMouseLeave={handleMouseLeave}
+        style={buttonStyle('contact')}
       >
         contact.
       </button>

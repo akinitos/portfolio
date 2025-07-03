@@ -13,61 +13,64 @@ const Star = ({ initialX, initialY, delay, isVisible }) => {
 
   useEffect(() => {
     const generateNewPosition = () => {
+      const radius = 30; // smaller area within 50x50 pupil
       const angle = Math.random() * 2 * Math.PI;
-      const radius = 18;
-      const x = Math.cos(angle) * radius;
-      const y = Math.sin(angle) * radius;
+      const r = Math.random() * radius;
+      const x = Math.cos(angle) * r;
+      const y = Math.sin(angle) * r;
       setPosition({ x, y });
-      setAnimationKey(prev => prev + 1); // Force animation restart
+      setAnimationKey(prev => prev + 1);
     };
 
-    // Wait for initial delay, then update position every 4 seconds (animation cycle)
     const timeout = setTimeout(() => {
       const interval = setInterval(generateNewPosition, 4000);
       return () => clearInterval(interval);
-    }, delay * 1000);
+    }, delay * 1000 + 4000);
 
     return () => clearTimeout(timeout);
   }, [delay]);
 
   return (
     <div
-      key={animationKey} // This forces the animation to restart when position changes
+      key={animationKey}
       style={{
         position: 'absolute',
-        left: '50%',
-        top: '50%',
-        width: '24px',
-        height: '24px',
+        left: `calc(50% + ${position.x}px)`,
+        top: `calc(50% + ${position.y}px)`,
+        width: '48px',
+        height: '48px',
         backgroundImage: `url(${sparkle})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        transform: `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px))`,
+        transform: 'translate(-50%, -50%)',
         animation: isVisible ? `starPop 4s ease-in-out infinite` : 'none',
-        zIndex: 16
+        zIndex: 20,
+        pointerEvents: 'none'
       }}
     />
   );
 };
 
+
 const generateStarPositions = () => {
   const stars = [];
-  const numStars = 4;
-  const radius = 18;
-  
+  const numStars = 1;
+
   for (let i = 0; i < numStars; i++) {
     const angle = Math.random() * 2 * Math.PI;
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
-    stars.push({ 
-      x, 
-      y, 
-      delay: i * 1, // Stagger delays: 0s, 1s, 2s, 3s
+    const r = Math.random() * 20; // Random radius within pupil
+    const x = Math.cos(angle) * r;
+    const y = Math.sin(angle) * r;
+
+    stars.push({
+      x,
+      y,
+      delay: i * 0.5,
       id: Math.random()
     });
   }
-  
+
   return stars;
 };
 
@@ -213,8 +216,8 @@ const EyeComponent = () => {
 
       <div style={{
         position: 'absolute',
-        width: '275px',
-        height: '275px',
+        width: '255px',
+        height: '255px',
         backgroundImage: `url(${shade})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
@@ -262,7 +265,7 @@ const EyeComponent = () => {
                 height: '50px',
                 transform: `translate(${eyePositions[index].x}px, ${eyePositions[index].y}px)`,
                 transition: 'transform 0.05s ease-out',
-                position: 'relative'
+                position: 'relative',
               }}
             >
               {/* Stars only on the last eye (highest z-index = topmost visually) */}
@@ -273,6 +276,7 @@ const EyeComponent = () => {
                   initialY={star.y} 
                   delay={star.delay}
                   isVisible={!isClosing && showPupils}
+                  eyePosition={eyePositions[3]}
                 />
               ))}
             </div>
