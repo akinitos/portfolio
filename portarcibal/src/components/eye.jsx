@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ellipse1 from '../assets/Ellipse 1.png';
 import ellipse2 from '../assets/Ellipse 2.png';
 import ellipse3 from '../assets/Ellipse 3.png';
@@ -6,37 +6,57 @@ import closedEye from '../assets/shut.png';
 import theCircle from '../assets/ring.png';  
 import sparkle from '../assets/sparkle.png';
 import shade from '../assets/ominous.png';
+import ReactDOM from 'react-dom';
 
-const Star = ({ initialX, initialY, delay, isVisible }) => {
+const Star = ({ initialX, initialY, delay, isVisible, pupilRef }) => {
   const [position, setPosition] = useState({ x: initialX, y: initialY });
-  const [animationKey, setAnimationKey] = useState(0);
+  const [screenPos, setScreenPos] = useState({ left: 0, top: 0 });
 
+  // Move star to new internal offset every few seconds
   useEffect(() => {
-    const generateNewPosition = () => {
-      const radius = 30; // smaller area within 50x50 pupil
+    const updateInternalPosition = () => {
+      const radius = 20;
       const angle = Math.random() * 2 * Math.PI;
       const r = Math.random() * radius;
       const x = Math.cos(angle) * r;
       const y = Math.sin(angle) * r;
       setPosition({ x, y });
-      setAnimationKey(prev => prev + 1);
     };
 
     const timeout = setTimeout(() => {
-      const interval = setInterval(generateNewPosition, 4000);
+      const interval = setInterval(updateInternalPosition, 4000);
       return () => clearInterval(interval);
     }, delay * 1000 + 4000);
 
     return () => clearTimeout(timeout);
   }, [delay]);
 
-  return (
+  // Live track the pupil's screen position every frame
+  useEffect(() => {
+    let animationFrame;
+
+    const updateScreenPosition = () => {
+      if (pupilRef.current) {
+        const rect = pupilRef.current.getBoundingClientRect();
+        setScreenPos({
+          left: rect.left + rect.width / 2 + position.x,
+          top: rect.top + rect.height / 2 + position.y
+        });
+      }
+      animationFrame = requestAnimationFrame(updateScreenPosition);
+    };
+
+    updateScreenPosition();
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [position, pupilRef]);
+
+  const starElement = (
     <div
-      key={animationKey}
       style={{
-        position: 'absolute',
-        left: `calc(50% + ${position.x}px)`,
-        top: `calc(50% + ${position.y}px)`,
+        position: 'fixed',
+        left: screenPos.left,
+        top: screenPos.top,
         width: '48px',
         height: '48px',
         backgroundImage: `url(${sparkle})`,
@@ -45,13 +65,14 @@ const Star = ({ initialX, initialY, delay, isVisible }) => {
         backgroundPosition: 'center',
         transform: 'translate(-50%, -50%)',
         animation: isVisible ? `starPop 4s ease-in-out infinite` : 'none',
-        zIndex: 20,
+        zIndex: 9999,
         pointerEvents: 'none'
       }}
     />
   );
-};
 
+  return ReactDOM.createPortal(starElement, document.getElementById('star-root'));
+};
 
 const generateStarPositions = () => {
   const stars = [];
@@ -59,7 +80,7 @@ const generateStarPositions = () => {
 
   for (let i = 0; i < numStars; i++) {
     const angle = Math.random() * 2 * Math.PI;
-    const r = Math.random() * 20; // Random radius within pupil
+    const r = Math.random() * 20;
     const x = Math.cos(angle) * r;
     const y = Math.sin(angle) * r;
 
@@ -86,7 +107,8 @@ const EyeComponent = () => {
   const [isClosing, setIsClosing] = useState(false);
   const [showPupils, setShowPupils] = useState(true);
   const [hoveredButton, setHoveredButton] = useState('');
-  const [starPositions, setStarPositions] = useState([]);
+  const starPositions = useMemo(() => generateStarPositions(), []);
+  const topPupilRef = useRef(null);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -154,10 +176,6 @@ const EyeComponent = () => {
       window.removeEventListener('navbarHover', handleNavbarHover);
       window.removeEventListener('navbarLeave', handleNavbarLeave);
     };
-  }, []);
-
-  useEffect(() => {
-    setStarPositions(generateStarPositions());
   }, []);
 
   const eyeRotations = [-45, 90, 0, 45];
@@ -254,32 +272,34 @@ const EyeComponent = () => {
           }}
         >
           {!isClosing && showPupils && (
-            <div 
-              className="pupil"
-              style={{
-                backgroundImage: `url(${ellipse1})`,
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                width: '50px',
-                height: '50px',
-                transform: `translate(${eyePositions[index].x}px, ${eyePositions[index].y}px)`,
-                transition: 'transform 0.05s ease-out',
-                position: 'relative',
-              }}
-            >
-              {/* Stars only on the last eye (highest z-index = topmost visually) */}
+            <>
               {index === 3 && starPositions.map((star) => (
                 <Star 
-                  key={star.id} 
-                  initialX={star.x} 
-                  initialY={star.y} 
+                  key={star.id}
+                  initialX={star.x}
+                  initialY={star.y}
                   delay={star.delay}
-                  isVisible={!isClosing && showPupils}
-                  eyePosition={eyePositions[3]}
+                  isVisible={true}
+                  pupilRef={topPupilRef}
                 />
               ))}
-            </div>
+
+              <div 
+                className="pupil"
+                ref={index === 3 ? topPupilRef : null}
+                style={{
+                  backgroundImage: `url(${ellipse1})`,
+                  backgroundSize: 'contain',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
+                  width: '50px',
+                  height: '50px',
+                  transform: `translate(${eyePositions[index].x}px, ${eyePositions[index].y}px)`,
+                  transition: 'transform 0.05s ease-out',
+                  position: 'relative',
+                }}
+              />
+            </>
           )}
           
           {!isClosing && (
