@@ -11,13 +11,15 @@ import ReactDOM from 'react-dom';
 const Star = ({ initialX, initialY, delay, isVisible, pupilRef }) => {
   const [position, setPosition] = useState({ x: initialX, y: initialY });
   const [screenPos, setScreenPos] = useState({ left: 0, top: 0 });
+  const rafRef = useRef();
 
   // Move star to new internal offset every few seconds
   useEffect(() => {
     const updateInternalPosition = () => {
-      const radius = 20;
+      const minRadius = 20; 
+      const maxRadius = 25;
       const angle = Math.random() * 2 * Math.PI;
-      const r = Math.random() * radius;
+      const r = minRadius + Math.random() * (maxRadius - minRadius);
       const x = Math.cos(angle) * r;
       const y = Math.sin(angle) * r;
       setPosition({ x, y });
@@ -31,10 +33,8 @@ const Star = ({ initialX, initialY, delay, isVisible, pupilRef }) => {
     return () => clearTimeout(timeout);
   }, [delay]);
 
-  // Live track the pupil's screen position every frame
+  // Optimized pupil tracking - only update when position changes or when pupil moves
   useEffect(() => {
-    let animationFrame;
-
     const updateScreenPosition = () => {
       if (pupilRef.current) {
         const rect = pupilRef.current.getBoundingClientRect();
@@ -43,13 +43,26 @@ const Star = ({ initialX, initialY, delay, isVisible, pupilRef }) => {
           top: rect.top + rect.height / 2 + position.y
         });
       }
-      animationFrame = requestAnimationFrame(updateScreenPosition);
     };
 
-    updateScreenPosition();
+    const startTracking = () => {
+      updateScreenPosition();
+      rafRef.current = requestAnimationFrame(startTracking);
+    };
 
-    return () => cancelAnimationFrame(animationFrame);
-  }, [position, pupilRef]);
+    if (isVisible) {
+      startTracking();
+    }
+
+    return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, [position, isVisible, pupilRef]);
+
+  // Don't render if not visible
+  if (!isVisible) return null;
 
   const starElement = (
     <div
@@ -57,21 +70,21 @@ const Star = ({ initialX, initialY, delay, isVisible, pupilRef }) => {
         position: 'fixed',
         left: screenPos.left,
         top: screenPos.top,
-        width: '48px',
-        height: '48px',
+        width: '36px',
+        height: '36px',
         backgroundImage: `url(${sparkle})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         transform: 'translate(-50%, -50%)',
-        animation: isVisible ? `starPop 4s ease-in-out infinite` : 'none',
+        animation: 'starPop 4s ease-in-out infinite',
         zIndex: 9999,
         pointerEvents: 'none'
       }}
     />
   );
 
-  return ReactDOM.createPortal(starElement, document.getElementById('star-root'));
+  return ReactDOM.createPortal(starElement, document.body);
 };
 
 const generateStarPositions = () => {
