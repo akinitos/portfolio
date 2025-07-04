@@ -78,7 +78,7 @@ const Star = ({ initialX, initialY, delay, isVisible, pupilRef }) => {
         backgroundPosition: 'center',
         transform: 'translate(-50%, -50%)',
         animation: 'starPop 4s ease-in-out infinite',
-        zIndex: 9999,
+        zIndex: 9000,
         pointerEvents: 'none'
       }}
     />
