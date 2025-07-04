@@ -58,29 +58,52 @@
     background: #faf9b7;
   }
 
-
-  /* 2. Underline Animation for Side Nav Buttons */
   .nav-button {
     position: relative;
     overflow: visible;
   }
+
   .nav-button::after {
     content: "";
     position: absolute;
-    ;
-    top: 20px;
-    bottom: 0;
-    left: 1rem;
+    bottom: -6px; /* Position further down from text baseline */
+    left: 50%;
+    transform: translateX(-70%); /* Center the underline */
     width: 0;
-    max-width: 7.5rem;
     height: 2px;
     background-color: currentColor;
     transition: width 0.3s ease;
   }
+
   .nav-button:hover::after,
   .nav-button.active::after {
-    width: 100%;
-    max-width: 7.5rem;
+    width: 40%; /* Shorter underline, centered */
+  }
+
+  /* Fix navbar centering issue */
+  .nav-button:not(.middle-button) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Middle button hover animation - using inline styles override */
+  button[style*="middle-button"],
+  button.middle-button {
+    transition: transform 0.2s ease !important;
+  }
+
+  button[style*="middle-button"]:hover,
+  button.middle-button:hover {
+    transform: scale(1.1) !important;
+  }
+
+  /* Background noise for about and certificates sections */
+  .about-section,
+  .certificates-section {
+    background-image: url('/assets/noise.png');
+    background-repeat: repeat;
+    background-size: auto;
   }
 
 
@@ -142,12 +165,6 @@
     letter-spacing: 0.1em;
     margin-bottom: 2rem;
     color: black;
-  }
-
-  .bg-noise {
-    background-image: url('/assets/noise.png');
-    background-repeat: repeat;
-    background-size: auto;
   }
 
   /* About Section */

@@ -141,29 +141,10 @@ const NavBar = () => {
         className={`nav-button ${currentSectionId === 'about' ? 'active' : ''}`}
         onClick={() => handleNavClick('about')}
         style={getSideButtonStyle('about')}
-        onMouseEnter={() => dispatchNavbarHover('see more of me.')}
+        onMouseEnter={() => dispatchNavbarHover('see what im about.')}
         onMouseLeave={() => dispatchNavbarLeave()}
       >
         about.
-      </button>
-
-      <button
-        className={`nav-button ${currentSectionId === 'certificates' ? 'active' : ''}`}
-        onClick={() => handleNavClick('certificates')}
-        style={getSideButtonStyle('certificates')}
-        onMouseEnter={() => dispatchNavbarHover('see what i earned.')}
-        onMouseLeave={() => dispatchNavbarLeave()}
-      >
-        certificates.
-      </button>
-
-      <button
-        onClick={() => handleNavClick('home')}
-        style={middleButtonStyle}
-        onMouseEnter={() => dispatchNavbarHover('home.')}
-        onMouseLeave={() => dispatchNavbarLeave()}
-      >
-        {isExpanded ? 'vdva.' : activeSection}
       </button>
 
       <button
@@ -177,10 +158,29 @@ const NavBar = () => {
       </button>
 
       <button
+        onClick={() => handleNavClick('home')}
+        style={middleButtonStyle}
+        onMouseEnter={() => dispatchNavbarHover('home.')}
+        onMouseLeave={() => dispatchNavbarLeave()}
+      >
+        {isExpanded ? 'vdva.' : activeSection}
+      </button>
+
+      <button
+        className={`nav-button ${currentSectionId === 'certificates' ? 'active' : ''}`}
+        onClick={() => handleNavClick('certificates')}
+        style={getSideButtonStyle('certificates')}
+        onMouseEnter={() => dispatchNavbarHover('see what i earned.')}
+        onMouseLeave={() => dispatchNavbarLeave()}
+      >
+        certificates.
+      </button>
+
+      <button
         className={`nav-button ${currentSectionId === 'contact' ? 'active' : ''}`}
         onClick={() => handleNavClick('contact')}
         style={getSideButtonStyle('contact')}
-        onMouseEnter={() => dispatchNavbarHover('lets connect.')}
+        onMouseEnter={() => dispatchNavbarHover('see more of me.')}
         onMouseLeave={() => dispatchNavbarLeave()}
       >
         contact.

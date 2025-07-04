@@ -25,8 +25,8 @@ function Landing() {
 
       {/* Additional Sections */}
       <About />
-      <Certificates />
       <Projects />
+      <Certificates />
       <Contact />
     </div>
   )
