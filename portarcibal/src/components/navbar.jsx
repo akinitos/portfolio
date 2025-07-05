@@ -113,7 +113,7 @@ const NavBar = () => {
     visibility: isExpanded ? 'visible' : 'hidden',
     opacity: isExpanded ? 1 : 0,
     width: isExpanded ? 'auto' : 0,
-    padding: isExpanded ? '0 15px' : 0,
+    padding: isExpanded ? '10px 15px' : 0,
     transition: isExpanded
       ? 'opacity 0.3s ease, width 0.4s ease, padding 0s ease'
       : 'opacity 0s, width 0.2s, padding 0.2s',
