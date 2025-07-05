@@ -80,7 +80,7 @@ const NavBar = () => {
     top: '20px',
     left: '50%',
     transform: 'translateX(-50%)',
-    width: isExpanded ? '80%' : 'auto',
+    width: isExpanded ? '80%' : 'fit-content',
     maxWidth: '1200px',
     height: '60px',
     backgroundColor: colors.background,
@@ -89,11 +89,11 @@ const NavBar = () => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: isExpanded ? 'space-between' : 'center',
-    padding: isExpanded ? '0 40px' : '0 10px',
+    padding: isExpanded ? '0 20px' : '0 10px',
     zIndex: 9999,
     fontFamily: "'Anonymous Pro', monospace",
     transition:
-      'width 0.4s ease, padding 0.2s ease, background-color 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease',
+      'width 0.4s ease, padding 0.2s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease, gap 0.2s ease',
   };
 
   const baseButtonStyle = {
@@ -115,8 +115,8 @@ const NavBar = () => {
     width: isExpanded ? 'auto' : 0,
     padding: isExpanded ? '0 15px' : 0,
     transition: isExpanded
-      ? 'opacity 0.3s ease, width 0.4s ease, padding 0.4s ease'
-      : 'opacity 0s, width 0.2s, padding 0s',
+      ? 'opacity 0.3s ease, width 0.4s ease, padding 0s ease'
+      : 'opacity 0s, width 0.2s, padding 0.2s',
   });
 
   const middleButtonStyle = {
@@ -128,7 +128,6 @@ const NavBar = () => {
     margin: isExpanded ? '0 10px' : '0',
     transition:
       'margin 0.4s ease, background-color 0.3s ease, color 0.3s ease, transform 0.2s ease',
-    transform: isExpanded ? 'scale(1)' : 'scale(0.95)',
   };
 
   return (
@@ -144,7 +143,7 @@ const NavBar = () => {
         onMouseEnter={() => dispatchNavbarHover('see what im about.')}
         onMouseLeave={() => dispatchNavbarLeave()}
       >
-        about.
+        <span>about.</span>
       </button>
 
       <button
@@ -154,10 +153,11 @@ const NavBar = () => {
         onMouseEnter={() => dispatchNavbarHover('see what i do.')}
         onMouseLeave={() => dispatchNavbarLeave()}
       >
-        projects.
+        <span>projects.</span>
       </button>
 
       <button
+        className="middle-button"
         onClick={() => handleNavClick('home')}
         style={middleButtonStyle}
         onMouseEnter={() => dispatchNavbarHover('home.')}
@@ -173,7 +173,7 @@ const NavBar = () => {
         onMouseEnter={() => dispatchNavbarHover('see what i earned.')}
         onMouseLeave={() => dispatchNavbarLeave()}
       >
-        certificates.
+        <span>certificates.</span>
       </button>
 
       <button
@@ -183,7 +183,7 @@ const NavBar = () => {
         onMouseEnter={() => dispatchNavbarHover('see more of me.')}
         onMouseLeave={() => dispatchNavbarLeave()}
       >
-        contact.
+        <span>contact.</span>
       </button>
     </nav>
   );

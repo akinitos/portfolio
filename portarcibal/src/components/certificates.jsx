@@ -1,6 +1,6 @@
 const Certificates = () => {
   return (
-    <section id="certificates" className="section certificates-section">
+    <section id="certificates" className="section bg-noise">
       <div className="section-content">
         <div className="certificates-content">
           <p>Coming soon...</p>
