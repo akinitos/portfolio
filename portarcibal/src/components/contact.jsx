@@ -1,6 +1,10 @@
 "use client"
 
 import { useState } from "react"
+import FacebookIcon from "../assets/Facebook.png"
+import LinkedInIcon from "../assets/LinkedIn.png"
+import GitHubIcon from "../assets/GitHub.png"
+import MailIcon from "../assets/Mail.png"
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -30,23 +34,18 @@ const Contact = () => {
   const socialLinks = [
     {
       name: "Facebook",
-      url: "https://facebook.com/yourprofile",
-      icon: "📘", 
-    },
-    {
-      name: "LinkedIn",
-      url: "https://linkedin.com/in/yourprofile",
-      icon: "💼",
+      url: "https://www.facebook.com/vonanana/",
+      icon: FacebookIcon, 
     },
     {
       name: "GitHub",
-      url: "https://github.com/yourprofile",
-      icon: "🐱",
+      url: "https://github.com/akinitos",
+      icon: GitHubIcon,
     },
     {
       name: "Email",
       url: "mailto:vonarcibal@gmail.com",
-      icon: "📧", 
+      icon: MailIcon, 
     },
   ]
 
@@ -57,12 +56,12 @@ const Contact = () => {
         <div className="contact-container">
           <div className="contact-info">
             <h3>Get in touch</h3>
-            <p>Feel free to reach out for collaborations, opportunities, or just to say hello!</p>
+            <p>Feel free to reach out; grab a cup, have a conversation, or just to say hello!</p>
 
             <div className="social-links">
               {socialLinks.map((link, index) => (
                 <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className="social-link">
-                  <div className="social-icon-placeholder">{link.icon}</div>
+                  <img src={link.icon} alt={`${link.name} icon`} className="social-icon-image" />
                   <span className="social-name">{link.name}</span>
                 </a>
               ))}

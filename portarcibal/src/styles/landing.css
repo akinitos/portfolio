@@ -51,8 +51,9 @@ body {
 .portfolio-container {
   width: 100%;
   height: 100vh;
-  overflow-y: auto;
-  scroll-snap-type: y proximity; 
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory; 
+  scroll-behavior: smooth;
 }
 
 .portfolio-container::-webkit-scrollbar {
@@ -210,8 +211,9 @@ button:focus-visible {
 /* Section Styles */
 .section {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -219,6 +221,7 @@ button:focus-visible {
   justify-content: center;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 /* Home Section Styles */
@@ -287,8 +290,26 @@ button:focus-visible {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  display: flex;
+  display: block;
   flex-direction: column;
+  overflow: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.section-content.scrollable {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.section-content.scrollable::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.section-content.scrollable {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 
 .section-title {
@@ -558,6 +579,9 @@ button:focus-visible {
   cursor: pointer;
   font-size: 1.2rem;
   z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-body {
@@ -664,13 +688,19 @@ button:focus-visible {
   color: black;
 }
 
-.social-icon-placeholder {
+.social-icon-image {
   width: 24px;
   height: 24px;
-  display: flex;
+  object-fit: contain;
   align-items: center;
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease; 
   justify-content: center;
   font-size: 1.2rem;
+}
+
+.social-link:hover .social-icon-image {
+  filter: brightness(0) invert(0);
 }
 
 .social-name {
@@ -887,7 +917,7 @@ button:focus-visible {
   }
 
   .section-content {
-    padding: 100px 20px 20px 20px;
+    padding: 100px 30px 20px 30px;
   }
 
   .home-title {
@@ -935,7 +965,7 @@ button:focus-visible {
 
 @media (max-width: 480px) {
   .section-content {
-    padding: 90px 15px 15px 15px;
+    padding: 90px 20px 15px 20px;
   }
 
   .section-title {
