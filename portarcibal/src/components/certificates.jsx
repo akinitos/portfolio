@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 
-// Import your images so Vite picks them up
 import ccna1 from "../assets/CCNA1.png"
 import ccna2 from "../assets/CCNA2.png"
 

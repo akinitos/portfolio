@@ -2,18 +2,25 @@
 
 import { useState, useEffect } from "react"
 
+import about1 from "../assets/about1.jpg"
+import about2 from "../assets/about2.jpg"
+import about3 from "../assets/about3.jpg"
+import about4 from "../assets/about4.jpg"
+import about5 from "../assets/about5.jpg"
+import about6 from "../assets/about6.jpg"
+
 const About = () => {
   const [currentImage, setCurrentImage] = useState(0)
   const [autoPlay, setAutoPlay] = useState(true)
   const [lastInteraction, setLastInteraction] = useState(Date.now())
 
   const images = [
-    "src/assets/about1.jpg",
-    "src/assets/about2.jpg",
-    "src/assets/about3.jpg",
-    "src/assets/about4.jpg",
-    "src/assets/about5.jpg",
-    "src/assets/about6.jpg",
+    about1,
+    about2,
+    about3,
+    about4,
+    about5,
+    about6
   ]
 
   const nextImage = () => {
