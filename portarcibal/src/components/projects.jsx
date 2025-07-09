@@ -50,7 +50,7 @@ const Projects = () => {
       id: 6,
       name: "3-bit Up and Down Counter w/ Switch Control and Decoder Output",
       description: "Circuitry project to use a 3-bit up and down counter to display not only numbers 0 - 7, but also the word 'bacteria'.",
-      image: "/src/assets/shut.png",
+      image: "/src/assets/updown.png",
       technologies: ["MultiSim", "LogiSim", "Verilog"],
     },
   ]
