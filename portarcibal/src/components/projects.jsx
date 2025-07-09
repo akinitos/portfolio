@@ -8,50 +8,50 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      name: "Project One",
+      name: "PikoSen",
       description:
-        "A comprehensive web application built with React and Node.js. Features include user authentication, real-time data updates, and responsive design.",
-      image: "/src/assets/placeholder1.png",
-      technologies: ["React", "Node.js", "MongoDB"],
+        "Designed and lead the frontend development of a coffee bean distribution market, with a goal to collaborate with local beaneries.",
+      image: "/src/assets/pikosen.png",
+      technologies: ["Vite + React", "Django", "CSS", "Figma"],
     },
     {
       id: 2,
-      name: "Project Two",
+      name: "TrailOne",
       description:
-        "Mobile application developed using React Native. Includes GPS tracking, push notifications, and offline functionality.",
-      image: "/src/assets/placeholder2.png",
-      technologies: ["React Native", "Firebase", "Redux"],
+        "Web application developed using vanilla HTML/CSS/JS. ",
+      image: "/src/assets/trailone.png",
+      technologies: ["HTML", "CSS", "JavaScript", "Django", "Figma"],
     },
     {
       id: 3,
-      name: "Project Three",
+      name: "Pinto",
       description:
-        "IoT project combining hardware and software. Arduino-based sensor system with web dashboard for monitoring.",
-      image: "/src/assets/placeholder3.png",
-      technologies: ["Arduino", "Python", "Flask"],
+        "My first dive towards using TKinter, specifically CustomTKinter. Sparked my interest in pursuing UI/UX and frontend development.",
+      image: "/src/assets/pinto.jpg",
+      technologies: ["Python", "CustomTKinter", "PhotoShop"],
     },
     {
       id: 4,
-      name: "Project Four",
+      name: "Arithmetic Logic Unit",
       description:
-        "Machine learning project for image classification. Trained custom CNN model with high accuracy results.",
-      image: "/src/assets/ominous.png",
-      technologies: ["Python", "TensorFlow", "OpenCV"],
+        "Built an Arithemtic Logic Unit as part of assembling a mini-computer for our Computer Architecture project",
+      image: "/src/assets/comarch.jpg",
+      technologies: ["Assembly"],
     },
     {
       id: 5,
-      name: "Project Five",
+      name: "Aristortle",
       description:
-        "E-commerce platform with payment integration. Full-stack application with admin panel and user management.",
-      image: "/src/assets/ring.png",
-      technologies: ["Vue.js", "Express", "PostgreSQL"],
+        "Sensor-based maze-solving Arduino robot car. Lovingly named it Aristortle; for its steady pace and wise pathing.",
+      image: "/src/assets/aristortle.png",
+      technologies: ["Arduino"],
     },
     {
       id: 6,
-      name: "Project Six",
-      description: "Game development project using Unity. 2D platformer with custom physics and level editor.",
+      name: "3-bit Up and Down Counter w/ Switch Control and Decoder Output",
+      description: "Circuitry project to use a 3-bit up and down counter to display not only numbers 0 - 7, but also the word 'bacteria'.",
       image: "/src/assets/shut.png",
-      technologies: ["Unity", "C#", "Photoshop"],
+      technologies: ["MultiSim", "LogiSim", "Verilog"],
     },
   ]
 

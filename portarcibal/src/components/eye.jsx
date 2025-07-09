@@ -1,22 +1,32 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import ReactDOM from 'react-dom';
+
 import ellipse1 from '../assets/Ellipse 1.png';
 import ellipse2 from '../assets/Ellipse 2.png';
 import ellipse3 from '../assets/Ellipse 3.png';
 import closedEye from '../assets/shut.png';
-import theCircle from '../assets/ring.png';  
+import theCircle from '../assets/ring.png';
 import sparkle from '../assets/sparkle.png';
 import shade from '../assets/ominous.png';
-import ReactDOM from 'react-dom';
 
-const Star = ({ initialX, initialY, delay, isVisible, pupilRef }) => {
+import ellipse1Inverted from '../assets/Ellipse 1_inverted.png';
+import ellipse2Inverted from '../assets/Ellipse 2_inverted.png';
+import ellipse3Inverted from '../assets/Ellipse 3_inverted.png';
+import closedEyeInverted from '../assets/shut_inverted.png';
+import theCircleInverted from '../assets/ring_inverted.png';
+import sparkleInverted from '../assets/sparkle_inverted.png';
+import shadeInverted from '../assets/ominous_inverted.png';
+
+const Star = ({ initialX, initialY, delay, isVisible, pupilRef, inverted }) => {
   const [position, setPosition] = useState({ x: initialX, y: initialY });
   const [screenPos, setScreenPos] = useState({ left: 0, top: 0 });
   const rafRef = useRef();
 
-  // Move star to new internal offset every few seconds
+  const sparkleAsset = inverted ? sparkleInverted : sparkle;
+
   useEffect(() => {
     const updateInternalPosition = () => {
-      const minRadius = 20; 
+      const minRadius = 20;
       const maxRadius = 25;
       const angle = Math.random() * 2 * Math.PI;
       const r = minRadius + Math.random() * (maxRadius - minRadius);
@@ -33,7 +43,6 @@ const Star = ({ initialX, initialY, delay, isVisible, pupilRef }) => {
     return () => clearTimeout(timeout);
   }, [delay]);
 
-  // Optimized pupil tracking - only update when position changes or when pupil moves
   useEffect(() => {
     const updateScreenPosition = () => {
       if (pupilRef.current) {
@@ -61,7 +70,6 @@ const Star = ({ initialX, initialY, delay, isVisible, pupilRef }) => {
     };
   }, [position, isVisible, pupilRef]);
 
-  // Don't render if not visible
   if (!isVisible) return null;
 
   const starElement = (
@@ -72,7 +80,7 @@ const Star = ({ initialX, initialY, delay, isVisible, pupilRef }) => {
         top: screenPos.top,
         width: '36px',
         height: '36px',
-        backgroundImage: `url(${sparkle})`,
+        backgroundImage: `url(${sparkleAsset})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -108,7 +116,7 @@ const generateStarPositions = () => {
   return stars;
 };
 
-const EyeComponent = () => {
+const EyeComponent = ({ inverted = false, isCentered = true }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [eyePositions, setEyePositions] = useState([
     { x: 0, y: 0 },
@@ -116,12 +124,21 @@ const EyeComponent = () => {
     { x: 0, y: 0 },
     { x: 0, y: 0 }
   ]);
-  const [isHovered, setIsHovered] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [showPupils, setShowPupils] = useState(true);
   const [hoveredButton, setHoveredButton] = useState('');
   const starPositions = useMemo(() => generateStarPositions(), []);
   const topPupilRef = useRef(null);
+  const eyeContainerRef = useRef(null);
+
+  const assets = {
+    ellipse1: inverted ? ellipse1Inverted : ellipse1,
+    ellipse2: inverted ? ellipse2Inverted : ellipse2,
+    ellipse3: inverted ? ellipse3Inverted : ellipse3,
+    closedEye: inverted ? closedEyeInverted : closedEye,
+    theCircle: inverted ? theCircleInverted : theCircle,
+    shade: inverted ? shadeInverted : shade,
+  };
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -133,37 +150,34 @@ const EyeComponent = () => {
   }, []);
 
   useEffect(() => {
-    if (!isHovered && !isClosing) {
-      const eyeElement = document.querySelector('.eye-container');
-      if (eyeElement) {
-        const eyeRect = eyeElement.getBoundingClientRect();
-        const eyeCenterX = eyeRect.left + eyeRect.width / 2;
-        const eyeCenterY = eyeRect.top + eyeRect.height / 2;
-        
-        const deltaX = mousePosition.x - eyeCenterX;
-        const deltaY = mousePosition.y - eyeCenterY;
-        
-        const maxMovement = 30;
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        
-        let normalizedX, normalizedY;
-        if (distance > maxMovement) {
-          normalizedX = (deltaX / distance) * maxMovement;
-          normalizedY = (deltaY / distance) * maxMovement;
-        } else {
-          normalizedX = deltaX * 1;
-          normalizedY = deltaY * 1;
-        }
-
-        setEyePositions([
-          { x: normalizedX, y: normalizedY },
-          { x: normalizedX, y: normalizedY },
-          { x: normalizedX, y: normalizedY },
-          { x: normalizedX, y: normalizedY }
-        ]);
+    if (!isClosing && eyeContainerRef.current) {
+      const eyeRect = eyeContainerRef.current.getBoundingClientRect();
+      const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+      const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+      
+      const deltaX = mousePosition.x - eyeCenterX;
+      const deltaY = mousePosition.y - eyeCenterY;
+      
+      const maxMovement = 30;
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+      
+      let normalizedX, normalizedY;
+      if (distance > maxMovement) {
+        normalizedX = (deltaX / distance) * maxMovement;
+        normalizedY = (deltaY / distance) * maxMovement;
+      } else {
+        normalizedX = deltaX * 1;
+        normalizedY = deltaY * 1;
       }
+
+      setEyePositions([
+        { x: normalizedX, y: normalizedY },
+        { x: normalizedX, y: normalizedY },
+        { x: normalizedX, y: normalizedY },
+        { x: normalizedX, y: normalizedY }
+      ]);
     }
-  }, [mousePosition, isHovered, isClosing]);
+  }, [mousePosition, isClosing]);
 
   useEffect(() => {
     const handleNavbarHover = (event) => {
@@ -193,14 +207,21 @@ const EyeComponent = () => {
 
   const eyeRotations = [-45, 90, 0, 45];
 
+  const containerStyle = isCentered ? {
+    position: 'absolute',
+    left: '50%',
+    top: '30%',
+    transform: 'translate(-50%, -15%)',
+  } : {
+    position: 'relative',
+  };
+
   return (
     <div 
+      ref={eyeContainerRef}
       className="eye-container"
       style={{
-        position: 'absolute',
-        left: '50%',
-        top: '30%',
-        transform: 'translate(-50%, -15%)',
+        ...containerStyle,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -208,12 +229,11 @@ const EyeComponent = () => {
         height: '200px'
       }} 
     >
-
       <div style={{
         position: 'absolute',
         width: '200px',
         height: '200px',
-        backgroundImage: `url(${theCircle})`,
+        backgroundImage: `url(${assets.theCircle})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -225,7 +245,7 @@ const EyeComponent = () => {
         position: 'absolute',
         width: '175px',
         height: '175px',
-        backgroundImage: `url(${theCircle})`,
+        backgroundImage: `url(${assets.theCircle})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -237,7 +257,7 @@ const EyeComponent = () => {
         position: 'absolute',
         width: '150px',
         height: '150px',
-        backgroundImage: `url(${theCircle})`,
+        backgroundImage: `url(${assets.theCircle})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -249,26 +269,24 @@ const EyeComponent = () => {
         position: 'absolute',
         width: '255px',
         height: '255px',
-        backgroundImage: `url(${shade})`,
+        backgroundImage: `url(${assets.shade})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         animation: 'counterRotate 50s linear infinite',
         zIndex: 1
       }} />
-
       
-      {/* Four eyes layered */}
       {eyeRotations.map((rotation, index) => (
         <div 
           key={index}
           className="eye-shape"
           style={{
-            backgroundImage: isClosing ? `url(${closedEye})` : `url(${ellipse2})`,
+            backgroundImage: isClosing ? `url(${assets.closedEye})` : `url(${assets.ellipse2})`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-            mask: `url(${ellipse2})`,
+            mask: `url(${assets.ellipse2})`,
             maskSize: 'contain',
             maskRepeat: 'no-repeat',
             maskPosition: 'center',
@@ -294,6 +312,7 @@ const EyeComponent = () => {
                   delay={star.delay}
                   isVisible={true}
                   pupilRef={topPupilRef}
+                  inverted={inverted}
                 />
               ))}
 
@@ -301,7 +320,7 @@ const EyeComponent = () => {
                 className="pupil"
                 ref={index === 3 ? topPupilRef : null}
                 style={{
-                  backgroundImage: `url(${ellipse1})`,
+                  backgroundImage: `url(${assets.ellipse1})`,
                   backgroundSize: 'contain',
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'center',
@@ -318,7 +337,7 @@ const EyeComponent = () => {
           {!isClosing && (
             <div 
               style={{
-                backgroundImage: `url(${ellipse3})`,
+                backgroundImage: `url(${assets.ellipse3})`,
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
@@ -333,15 +352,14 @@ const EyeComponent = () => {
           )}
         </div>
       ))}
-
-      {/* See more text */}
+      
       <div 
         className="navbar-text"
         style={{
           opacity: hoveredButton ? 1 : 0,
           transition: 'opacity 0.3s ease',
-          color: '#FFFFFF',
-          fontSize: '1rem', // Smaller font size
+          color: inverted ? '#000000' : '#FFFFFF',
+          fontSize: '1rem',
           letterSpacing: '0.05rem',
           textAlign: 'center',
           fontWeight: 'bold',
@@ -352,7 +370,7 @@ const EyeComponent = () => {
           pointerEvents: 'none',
           zIndex: 100,
           fontFamily: 'Anonymous Pro, monospace',
-          maxWidth: '140px', // Limit width for text wrapping
+          maxWidth: '140px',
           wordWrap: 'break-word',
           whiteSpace: 'normal'
         }}

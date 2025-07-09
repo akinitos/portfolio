@@ -337,6 +337,10 @@ button:focus-visible {
   line-height: 1.8;
 }
 
+.about-text p {
+  padding-top: 2rem;
+}
+
 .image-carousel-container {
   display: flex;
   flex-direction: column;

@@ -8,56 +8,43 @@ const Certificates = () => {
   const certificates = [
     {
       id: 1,
-      name: "React Developer Certification",
-      issuer: "Tech Academy",
+      name: "CCNAv7: Introduction to Networks",
+      issuer: "CISCO Networking Academy",
       date: "2024",
-      description:
-        "Comprehensive certification covering React fundamentals, hooks, state management, and modern development practices.",
-      image: "/src/assets/certificate1.png",
+      description: (
+        <>
+          The student was able to proficiently:<br />
+          - Configure switches and end devices to provide access to local and remote network resources. <br />
+          - Explain how physical and data link layer protocols support the operation of Ethernet in a switched network. <br />
+          - Configure routers to enable end-to-end connectivity between remote devices. <br />
+          - Create IPv4 and IPv6 addressing schemes and verify network connectivity between devices. <br />
+          - Explain how the upper layers of the OSI model support network applications. <br />
+          - Configure a small network with security best practices. <br />
+          - Troubleshoot connectivity in a small network. <br />
+        </>
+      ),
+      image: "/src/assets/CCNA1.png",
     },
     {
       id: 2,
-      name: "JavaScript Advanced Concepts",
-      issuer: "Code Institute",
-      date: "2023",
-      description:
-        "Advanced JavaScript certification covering ES6+, async programming, design patterns, and performance optimization.",
-      image: "/src/assets/certificate2.png",
-    },
-    {
-      id: 3,
-      name: "Node.js Backend Development",
-      issuer: "Backend Masters",
-      date: "2023",
-      description: "Server-side development certification with Node.js, Express, database integration, and API design.",
-      image: "/src/assets/placeholder1.png",
-    },
-    {
-      id: 4,
-      name: "Database Management",
-      issuer: "Data Academy",
-      date: "2023",
-      description: "Database design and management certification covering SQL, NoSQL, optimization, and data modeling.",
-      image: "/src/assets/placeholder2.png",
-    },
-    {
-      id: 5,
-      name: "Cloud Computing Fundamentals",
-      issuer: "Cloud Institute",
-      date: "2022",
-      description:
-        "Cloud computing certification covering AWS, deployment strategies, and scalable architecture design.",
-      image: "/src/assets/placeholder3.png",
-    },
-    {
-      id: 6,
-      name: "Cybersecurity Basics",
-      issuer: "Security Academy",
-      date: "2022",
-      description:
-        "Cybersecurity fundamentals certification covering network security, encryption, and best practices.",
-      image: "/src/assets/sparkle.png",
-    },
+      name: "CCNAv7: Switching, Routing, and Wireless Essentials",
+      issuer: "CISCO Networking Academy",
+      date: "2024",
+      description: (
+        <>
+          The student was able to proficiently:<br />
+          - Configure VLANs and Inter-VLAN routing applying security best practices. <br />
+          - Troubleshoot inter-VLAN routing on Layer 3 devices. <br />
+          - Configure redundancy on a switched network using STP and EtherChannel. <br />
+          - Explain how to support available and reliable networks using dynamic addressing and first-hop redundancy protocols. <br />
+          - Configure dynamic address allocation in IPv6 networks. <br />
+          - Configure WLANs using a WLC and L2 security best practices. <br />
+          - Configure switch security to mitigate LAN attacks. <br />
+          - Configure IPv4 and IPv6 static routing on routers. <br />
+        </>
+      ),
+      image: "/src/assets/CCNA2.png",
+    }
   ]
 
   const openModal = (certificate) => {

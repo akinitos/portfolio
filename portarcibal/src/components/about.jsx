@@ -56,10 +56,13 @@ const About = () => {
 
         <div className="about-container">
           <div className="about-text">
+            <h2>
+              "Mind over matter and soul before flesh."   
+              - Mos Def
+            </h2>
             <p>
-              Computer Engineering student with a passion for technology and innovation. I enjoy creating solutions that
-              bridge the gap between hardware and software, constantly learning and exploring new technologies to build
-              meaningful projects.
+              Hello! I'm Von Derek V. Arcibal. Currently studying computer engineering with a passion for elevating design with innovative technology. I enjoy creating solutions that
+              bridge the gap between hardware and software, constantly learning and exploring to reveal beauty within machine.
             </p>
           </div>
 

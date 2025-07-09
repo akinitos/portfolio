@@ -2,9 +2,8 @@
 
 import { useState } from "react"
 import FacebookIcon from "../assets/Facebook.png"
-import LinkedInIcon from "../assets/LinkedIn.png"
 import GitHubIcon from "../assets/GitHub.png"
-import MailIcon from "../assets/Mail.png"
+import EyeComponent from "./eye"
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -41,31 +40,30 @@ const Contact = () => {
       name: "GitHub",
       url: "https://github.com/akinitos",
       icon: GitHubIcon,
-    },
-    {
-      name: "Email",
-      url: "mailto:vonarcibal@gmail.com",
-      icon: MailIcon, 
-    },
+    }
   ]
 
   return (
     <section id="contact" className="section contact-section">
-      <div className="section-content">
+      <div className="section-content contact-section-content">
 
         <div className="contact-container">
           <div className="contact-info">
             <h3>Get in touch</h3>
             <p>Feel free to reach out; grab a cup, have a conversation, or just to say hello!</p>
 
-            <div className="social-links">
+            <div className="social-links" style={{ flexDirection: "row", gap: "1rem", marginBottom: "2rem" }}>
               {socialLinks.map((link, index) => (
-                <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className="social-link">
+                <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className="social-link" style={{ padding: "0.75rem", justifyContent: "center" }}>
                   <img src={link.icon} alt={`${link.name} icon`} className="social-icon-image" />
-                  <span className="social-name">{link.name}</span>
                 </a>
               ))}
             </div>
+
+            <div style={{ position: 'relative', width: '100%', height: '100px', display: 'flex', justifyContent: 'center' }}>
+                <EyeComponent inverted={true} isCentered={true} />
+            </div>
+
           </div>
 
           <div className="contact-form-container">
@@ -124,6 +122,7 @@ const Contact = () => {
             </form>
           </div>
         </div>
+
       </div>
     </section>
   )
