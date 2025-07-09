@@ -8,12 +8,12 @@ const About = () => {
   const [lastInteraction, setLastInteraction] = useState(Date.now())
 
   const images = [
-    "/src/assets/about1.jpg",
-    "/src/assets/about2.jpg",
-    "/src/assets/about3.jpg",
-    "/src/assets/about4.jpg",
-    "/src/assets/about5.jpg",
-    "/src/assets/about6.jpg",
+    "src/assets/about1.jpg",
+    "src/assets/about2.jpg",
+    "src/assets/about3.jpg",
+    "src/assets/about4.jpg",
+    "src/assets/about5.jpg",
+    "src/assets/about6.jpg",
   ]
 
   const nextImage = () => {

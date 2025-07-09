@@ -11,7 +11,7 @@ const Projects = () => {
       name: "PikoSen",
       description:
         "Designed and lead the frontend development of a coffee bean distribution market, with a goal to collaborate with local beaneries.",
-      image: "/src/assets/pikosen.png",
+      image: "src/assets/pikosen.png",
       technologies: ["Vite + React", "Django", "CSS", "Figma"],
     },
     {
@@ -19,7 +19,7 @@ const Projects = () => {
       name: "TrailOne",
       description:
         "Web application developed using vanilla HTML/CSS/JS. ",
-      image: "/src/assets/trailone.png",
+      image: "src/assets/trailone.png",
       technologies: ["HTML", "CSS", "JavaScript", "Django", "Figma"],
     },
     {
@@ -27,7 +27,7 @@ const Projects = () => {
       name: "Pinto",
       description:
         "My first dive towards using TKinter, specifically CustomTKinter. Sparked my interest in pursuing UI/UX and frontend development.",
-      image: "/src/assets/pinto.jpg",
+      image: "src/assets/pinto.jpg",
       technologies: ["Python", "CustomTKinter", "PhotoShop"],
     },
     {
@@ -35,7 +35,7 @@ const Projects = () => {
       name: "Arithmetic Logic Unit",
       description:
         "Built an Arithemtic Logic Unit as part of assembling a mini-computer for our Computer Architecture project",
-      image: "/src/assets/comarch.jpg",
+      image: "src/assets/comarch.jpg",
       technologies: ["Assembly"],
     },
     {
@@ -43,14 +43,14 @@ const Projects = () => {
       name: "Aristortle",
       description:
         "Sensor-based maze-solving Arduino robot car. Lovingly named it Aristortle; for its steady pace and wise pathing.",
-      image: "/src/assets/aristortle.png",
+      image: "src/assets/aristortle.png",
       technologies: ["Arduino"],
     },
     {
       id: 6,
       name: "3-bit Up and Down Counter w/ Switch Control and Decoder Output",
       description: "Circuitry project to use a 3-bit up and down counter to display not only numbers 0 - 7, but also the word 'bacteria'.",
-      image: "/src/assets/updown.png",
+      image: "src/assets/updown.png",
       technologies: ["MultiSim", "LogiSim", "Verilog"],
     },
   ]

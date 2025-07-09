@@ -23,7 +23,7 @@ const Certificates = () => {
           - Troubleshoot connectivity in a small network. <br />
         </>
       ),
-      image: "/src/assets/CCNA1.png",
+      image: "src/assets/CCNA1.png",
     },
     {
       id: 2,
@@ -43,7 +43,7 @@ const Certificates = () => {
           - Configure IPv4 and IPv6 static routing on routers. <br />
         </>
       ),
-      image: "/src/assets/CCNA2.png",
+      image: "src/assets/CCNA2.png",
     }
   ]
 
