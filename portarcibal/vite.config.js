@@ -5,7 +5,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [react()],
   base: mode === 'production' ? '/portfolio/' : '/',
   build: {
-    outDir: 'docs',
+    outDir: 'dist',
   },
   server: {
     historyApiFallback: true,
