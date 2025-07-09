@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import FacebookIcon from "../assets/Facebook.png"
-import GithubIcon from "../assets/Github.png"
+import GitHubIcon from "../assets/Github.png"
 import EyeComponent from "./eye"
 
 const Contact = () => {
@@ -39,7 +39,7 @@ const Contact = () => {
     {
       name: "GitHub",
       url: "https://github.com/akinitos",
-      icon: GithubIcon,
+      icon: GitHubIcon,
     }
   ]
 
