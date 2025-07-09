@@ -17,6 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: List your assets
+        run: |
+          echo "PWD: $(pwd)"
+          ls -R portarcibal/src/assets
+          grep -R "GitHub" -n portarcibal/src/assets
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
