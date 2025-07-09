@@ -2,6 +2,10 @@
 
 import { useState } from "react"
 
+// Import your images so Vite picks them up
+import ccna1 from "../assets/CCNA1.png"
+import ccna2 from "../assets/CCNA2.png"
+
 const Certificates = () => {
   const [selectedCertificate, setSelectedCertificate] = useState(null)
 
@@ -23,7 +27,7 @@ const Certificates = () => {
           - Troubleshoot connectivity in a small network. <br />
         </>
       ),
-      image: "src/assets/CCNA1.png",
+      image: ccna1,
     },
     {
       id: 2,
@@ -43,35 +47,34 @@ const Certificates = () => {
           - Configure IPv4 and IPv6 static routing on routers. <br />
         </>
       ),
-      image: "src/assets/CCNA2.png",
+      image: ccna2,
     }
   ]
 
-  const openModal = (certificate) => {
-    setSelectedCertificate(certificate)
-  }
-
-  const closeModal = () => {
-    setSelectedCertificate(null)
-  }
+  const openModal  = (cert) => setSelectedCertificate(cert)
+  const closeModal = () => setSelectedCertificate(null)
 
   return (
     <section id="certificates" className="section">
       <div className="section-content">
 
         <div className="certificates-grid">
-          {certificates.map((certificate) => (
-            <div key={certificate.id} className="certificate-item" onClick={() => openModal(certificate)}>
+          {certificates.map((cert) => (
+            <div
+              key={cert.id}
+              className="certificate-item"
+              onClick={() => openModal(cert)}
+            >
               <div className="certificate-image-container">
                 <img
-                  src={certificate.image || "/placeholder.svg"}
-                  alt={certificate.name}
+                  src={cert.image}
+                  alt={cert.name}
                   className="certificate-image"
                 />
                 <div className="certificate-overlay">
-                  <h3 className="certificate-name">{certificate.name}</h3>
-                  <p className="certificate-issuer">{certificate.issuer}</p>
-                  <p className="certificate-date">{certificate.date}</p>
+                  <h3 className="certificate-name">{cert.name}</h3>
+                  <p className="certificate-issuer">{cert.issuer}</p>
+                  <p className="certificate-date">{cert.date}</p>
                 </div>
               </div>
             </div>
@@ -81,25 +84,30 @@ const Certificates = () => {
         {selectedCertificate && (
           <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <button className="modal-close" onClick={closeModal}>
-                ×
-              </button>
+              <button className="modal-close" onClick={closeModal}>×</button>
               <div className="modal-body">
                 <img
-                  src={selectedCertificate.image || "/placeholder.svg"}
+                  src={selectedCertificate.image}
                   alt={selectedCertificate.name}
                   className="modal-image"
                 />
                 <div className="modal-info">
                   <h3 className="modal-title">{selectedCertificate.name}</h3>
-                  <p className="modal-issuer">Issued by: {selectedCertificate.issuer}</p>
-                  <p className="modal-date">Date: {selectedCertificate.date}</p>
-                  <p className="modal-description">{selectedCertificate.description}</p>
+                  <p className="modal-issuer">
+                    Issued by: {selectedCertificate.issuer}
+                  </p>
+                  <p className="modal-date">
+                    Date: {selectedCertificate.date}
+                  </p>
+                  <p className="modal-description">
+                    {selectedCertificate.description}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         )}
+
       </div>
     </section>
   )
