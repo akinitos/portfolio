@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import FacebookIcon from "../assets/Facebook.png"
-import GitHubIcon from "../assets/GitHub.png"
+import GitHubIcon from "../assets/Github.png"
 import EyeComponent from "./eye"
 
 const Contact = () => {
