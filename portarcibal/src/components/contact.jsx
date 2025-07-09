@@ -60,7 +60,7 @@ const Contact = () => {
               ))}
             </div>
 
-            <div style={{ position: 'relative', width: '100%', height: '100px', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ position: 'relative', width: '100%', height: '50px', display: 'flex', justifyContent: 'center' }}>
                 <EyeComponent inverted={true} isCentered={true} />
             </div>
 
