@@ -333,12 +333,18 @@ button:focus-visible {
 
 .about-text {
   flex: 1;
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  text-align: justify;
 }
 
 .about-text p {
+  font-size: 1rem;
   padding-top: 2rem;
+}
+
+.about-text h2 {
+  margin-top: -2px;
 }
 
 .image-carousel-container {

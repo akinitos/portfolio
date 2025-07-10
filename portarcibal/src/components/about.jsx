@@ -68,8 +68,12 @@ const About = () => {
               - Mos Def
             </h2>
             <p>
-              Hello! I'm Von Derek V. Arcibal. Currently studying computer engineering with a passion for elevating design with innovative technology. I enjoy creating solutions that
-              bridge the gap between hardware and software, constantly learning and exploring to reveal beauty within machine.
+              Hello! I'm <b>Von Derek V. Arcibal</b>, a computer engineering student with a passion for elevating design with innovative technology. 
+              I enjoy the thrill of constantly learning and exploring; to reveal beauty within machine. <br /><br />
+              
+              Though my interests lie in the realm of design, my skills in bringing said designs to life aren't lacking; whether it be hardware or software.
+              That goes for <b>React, Vite, HTML/CSS/JS, Python, C++, Arduino, Circuitry, etc.</b> Some of which I'm more proficient in than others, but in
+              all of them I am more than confident enough in my base understanding. 
             </p>
           </div>
 

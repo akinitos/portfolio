@@ -8,6 +8,7 @@ import project3 from "../assets/pinto.jpg"
 import project4 from "../assets/comarch.jpg"
 import project5 from "../assets/aristortle.png"
 import project6 from "../assets/updown.png"
+import nnoah2 from "../assets/nnoah2.png"
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null)
@@ -15,6 +16,14 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
+      name: "Neural Network Oracle for Aqueous Height (NNOAH)",
+      description:
+        "Our Methods of Research project. Still ongoing. Was designed with the idea of providing a warning system earlier than what is currently available in the market. Makes use of neural networks.",
+      image: nnoah2,
+      technologies: ["TinkerCad"],
+    },    
+    {
+      id: 2,
       name: "PikoSen",
       description:
         "Designed and lead the frontend development of a coffee bean distribution market, with a goal to collaborate with local beaneries.",
@@ -22,7 +31,7 @@ const Projects = () => {
       technologies: ["Vite + React", "Django", "CSS", "Figma"],
     },
     {
-      id: 2,
+      id: 3,
       name: "TrailOne",
       description:
         "Web application developed using vanilla HTML/CSS/JS. ",
@@ -30,7 +39,7 @@ const Projects = () => {
       technologies: ["HTML", "CSS", "JavaScript", "Django", "Figma"],
     },
     {
-      id: 3,
+      id: 4,
       name: "Pinto",
       description:
         "My first dive towards using TKinter, specifically CustomTKinter. Sparked my interest in pursuing UI/UX and frontend development.",
@@ -38,7 +47,7 @@ const Projects = () => {
       technologies: ["Python", "CustomTKinter", "PhotoShop"],
     },
     {
-      id: 4,
+      id: 5,
       name: "Arithmetic Logic Unit",
       description:
         "Built an Arithemtic Logic Unit as part of assembling a mini-computer for our Computer Architecture project",
@@ -46,7 +55,7 @@ const Projects = () => {
       technologies: ["Assembly"],
     },
     {
-      id: 5,
+      id: 6,
       name: "Aristortle",
       description:
         "Sensor-based maze-solving Arduino robot car. Lovingly named it Aristortle; for its steady pace and wise pathing.",
@@ -54,7 +63,7 @@ const Projects = () => {
       technologies: ["Arduino"],
     },
     {
-      id: 6,
+      id: 7,
       name: "3-bit Up and Down Counter w/ Switch Control and Decoder Output",
       description: "Circuitry project to use a 3-bit up and down counter to display not only numbers 0 - 7, but also the word 'bacteria'.",
       image: project6,
