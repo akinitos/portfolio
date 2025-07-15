@@ -5,7 +5,7 @@ import Landing from "./pages/landing.jsx"
 function App() {
   return (
     <>
-     <BrowserRouter basename={import.meta.env.PROD ? '/portfolio/' : '/'}>
+     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route index element={<Landing />} />
 

@@ -9,6 +9,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d docs",
     "build": "vite build",
+   "build:gh": "cross-env DEPLOY_TARGET=gh-pages vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
