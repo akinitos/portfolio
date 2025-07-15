@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: { '@': path.resolve(__dirname, 'src') }
   },
-  base: mode === 'production' ? '/portfolio/' : '/',
+  base: process.env.VITE_BASE_PATH || "/portfolio",
   build: { outDir: 'docs' },
   server: { historyApiFallback: true },
 }))
